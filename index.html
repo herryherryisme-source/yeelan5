@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宜蘭兩天一夜之旅｜11/27 – 11/28</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // 自訂 Tailwind 主題色票與字體設定
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              tealDark: '#0b3940',
+              teal: '#0f5257',
+              tealMid: '#155e63',
+              tealLight: '#297a7e',
+              tealSoft: '#e6f2f3',
+              coral: '#e06d53',
+              coralSoft: '#fdf0ed',
+              pageBg: '#f6f7f9'
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-brand-pageBg text-[#162127] font-sans antialiased selection:bg-brand-coralSoft selection:text-brand-coral">
+
+  <!-- ==================== 1. 頂部固定導覽列與進度條 ==================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-5xl mx-auto px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+      <a href="#top" class="flex items-center gap-2 font-extrabold text-brand-teal text-base sm:text-lg tracking-tight">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-coral inline-block"></span>
+        <span>宜蘭兩天一夜 11/27–11/28</span>
+      </a>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+        <nav class="flex items-center gap-1">
+          <a href="#itinerary" class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:bg-brand-tealSoft hover:text-brand-teal transition-colors">行程表</a>
+          <a href="#food" class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:bg-brand-tealSoft hover:text-brand-teal transition-colors">必買美食</a>
+          <a href="#tools" class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:bg-brand-tealSoft hover:text-brand-teal transition-colors">清單與筆記</a>
+        </nav>
+        <button
+          id="toggleEditBtn"
+          type="button"
+          class="px-3 py-1.5 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-700 hover:border-brand-teal hover:text-brand-teal transition-colors cursor-pointer"
+        >
+          🖼️ 更換圖片
+        </button>
+      </div>
+    </div>
+
+    <!-- 圖片編輯模式提示列 (預設隱藏) -->
+    <div id="editBanner" class="hidden bg-[#162127] text-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm">
+      <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <span>🖼️ <strong>圖片編輯模式：</strong>可直接在下方各景點卡片貼上新圖片網址，或點「去 Google 找圖」替換。</span>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button
+            id="copyMapBtn"
+            type="button"
+            class="px-3 py-1.5 rounded-lg bg-brand-coral hover:opacity-90 text-white font-bold text-xs transition-opacity cursor-pointer"
+          >
+            📋 複製圖片設定碼
+          </button>
+          <button
+            id="closeEditBtn"
+            type="button"
+            class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-white font-bold text-xs transition-colors cursor-pointer"
+          >
+            完成
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 行程完成進度條 -->
+    <div class="w-full h-1 bg-slate-200">
+      <div id="progressFill" class="h-full w-0 bg-gradient-to-r from-brand-teal to-brand-coral transition-all duration-300"></div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. 封面大圖 Hero Section ==================== -->
+  <section id="top" class="relative overflow-hidden bg-gradient-to-br from-brand-tealDark via-brand-tealMid to-brand-tealLight text-white pt-14 pb-20 sm:pt-16 sm:pb-24 px-4 sm:px-5">
+    <!-- 真實外澳海景與龜山島背景圖 (支援 referrerpolicy="no-referrer" 與備援縮圖) -->
+    <img
+      id="heroBgImg"
+      src=""
+      alt="外澳海景與龜山島"
+      referrerpolicy="no-referrer"
+      class="absolute inset-0 w-full h-full object-cover object-center opacity-55 transition-opacity duration-500 pointer-events-none"
+    />
+    <!-- 深青色漸層遮罩確保文字清晰易讀 -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#0b3940]/85 via-[#155e63]/70 to-[#297a7e]/65 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(224,109,83,0.32),transparent_48%)] pointer-events-none"></div>
+
+    <div class="relative max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-xs text-xs sm:text-sm font-semibold tracking-wider mb-4">
+        🌊 YILAN 2D1N TRIP · 11/27 – 11/28
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-3.5 drop-shadow-xs">
+        宜蘭兩天一夜之旅
+      </h1>
+
+      <p class="text-sm sm:text-base text-white/90 max-w-2xl leading-relaxed mb-6">
+        從中壢出發，一路沿著東北角單車吹海風、喝海景咖啡、賞蘭陽百萬夜景，隔天吃老宅咖哩、看水豚梅花鹿、逛羅東夜市滿載而歸。
+      </p>
+
+      <!-- 路線標籤帶 -->
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-7">
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">中壢</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">台北轉乘</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">福隆</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">外澳</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">礁溪</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">宜蘭</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">羅東</span>
+        <span class="text-white/60 text-xs">→</span>
+        <span class="px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-xs text-xs sm:text-sm font-bold">台北市政府</span>
+      </div>
+
+      <!-- 數據摘要卡 -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">
+        <div class="bg-white/15 border border-white/20 backdrop-blur-md rounded-2xl p-4">
+          <div class="text-xs text-white/80 mb-1">出發班次 (11/27)</div>
+          <div class="text-lg font-extrabold">07:32 自強 102</div>
+        </div>
+        <div class="bg-white/15 border border-white/20 backdrop-blur-md rounded-2xl p-4">
+          <div class="text-xs text-white/80 mb-1">回程抵達 (11/28)</div>
+          <div class="text-lg font-extrabold">21:00 市政府</div>
+        </div>
+        <div class="bg-white/15 border border-white/20 backdrop-blur-md rounded-2xl p-4">
+          <div class="text-xs text-white/80 mb-1">目前行程進度</div>
+          <div id="heroProgress" class="text-lg font-extrabold">0 / 24 站</div>
+        </div>
+      </div>
+
+      <!-- 封面圖編輯器 (僅在圖片編輯模式顯示) -->
+      <div id="heroEditorBox" class="hidden mt-5 max-w-xl bg-black/55 backdrop-blur-md border border-white/25 rounded-2xl p-3.5 text-xs">
+        <div class="font-bold mb-2">🌊 更換封面背景圖（外澳海景／龜山島）</div>
+        <div class="flex gap-2">
+          <input
+            id="heroUrlInput"
+            type="url"
+            placeholder="貼上封面圖片網址 (https://...)"
+            class="flex-1 min-w-0 px-3 py-1.5 rounded-lg bg-white text-slate-800 text-xs outline-none"
+          />
+          <button
+            id="saveHeroUrlBtn"
+            type="button"
+            class="px-3 py-1.5 rounded-lg bg-brand-coral text-white font-bold cursor-pointer hover:opacity-90"
+          >
+            套用
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. 主要內容區 ==================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-5 -mt-9 relative z-10 pb-16 space-y-12">
+
+    <!-- 重點提醒橫幅 (3 張關鍵卡片) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+      <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-red-500 flex items-start gap-3">
+        <span class="text-2xl leading-none">🚆</span>
+        <div>
+          <div class="font-extrabold text-sm text-slate-900 mb-0.5">Day 1 12:44 福隆往外澳別錯過</div>
+          <p class="text-xs text-slate-600 leading-relaxed">區間車僅 22 分鐘，沒搭到下一班要等 1 小時，12:20 準時回到福隆車站最保險。</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-amber-500 flex items-start gap-3">
+        <span class="text-2xl leading-none">🍛</span>
+        <div>
+          <div class="font-extrabold text-sm text-slate-900 mb-0.5">Day 2 馬桂爺爺「前七日預約」</div>
+          <p class="text-xs text-slate-600 leading-relaxed">務必提前 7 天（11/21）完成預約，11:40 準時入場享用老宅咖哩。</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-brand-teal flex items-start gap-3">
+        <span class="text-2xl leading-none">🚌</span>
+        <div>
+          <div class="font-extrabold text-sm text-slate-900 mb-0.5">空ㄟ接駁 & 壯圍大橋站</div>
+          <p class="text-xs text-slate-600 leading-relaxed">空ㄟ農場接駁車 10–15 分一班、用餐限 90 分鐘；Day 2 公車 791/1787/1788 於「壯圍大橋站」下車。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 行程時間軸 Section ==================== -->
+    <section id="itinerary" class="scroll-mt-24">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 flex flex-wrap items-center gap-2.5">
+          <span>行程時間軸</span>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-tealSoft text-brand-teal">點擊圓點打卡・點圖片可放大</span>
+        </h2>
+      </div>
+
+      <!-- 天數切換 + 類別篩選控制列 -->
+      <div class="bg-white rounded-2xl p-3 sm:p-4 border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div class="flex flex-wrap gap-2" id="dayTabs">
+          <button type="button" data-day="all" class="day-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-teal text-white transition-colors cursor-pointer">全部展開</button>
+          <button type="button" data-day="day1" class="day-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">DAY 1｜11/27 (福隆・外澳・礁溪)</button>
+          <button type="button" data-day="day2" class="day-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">DAY 2｜11/28 (宜蘭・動物王國・羅東)</button>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5" id="filterPills">
+          <button type="button" data-filter="all" class="filter-pill px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-coralSoft text-brand-coral transition-colors cursor-pointer">全部</button>
+          <button type="button" data-filter="transport" class="filter-pill px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer">交通</button>
+          <button type="button" data-filter="food" class="filter-pill px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer">美食</button>
+          <button type="button" data-filter="spot" class="filter-pill px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer">景點</button>
+        </div>
+      </div>
+
+      <!-- DAY 1 面板 -->
+      <div id="panel-day1" class="space-y-4">
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-lg font-black text-brand-teal">DAY 1｜11/27 福隆・外澳・礁溪</h3>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">東北角單車、伯朗城堡海景咖啡、礁溪伴手禮、空ㄟ農場夕陽夜景</p>
+          </div>
+          <span id="day1Count" class="text-xs font-bold px-3 py-1 rounded-full bg-brand-tealSoft text-brand-teal">0 / 12 完成</span>
+        </div>
+        <div id="timeline-day1" class="relative pl-6 sm:pl-7 space-y-3.5 before:content-[''] before:absolute before:left-[9px] before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-200"></div>
+      </div>
+
+      <!-- DAY 2 面板 -->
+      <div id="panel-day2" class="space-y-4 mt-7">
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-lg font-black text-brand-teal">DAY 2｜11/28 宜蘭市・動物王國・羅東</h3>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">馬桂爺爺咖哩、動物王國互動、羅東夜市美食、諾貝爾奶凍捲</p>
+          </div>
+          <span id="day2Count" class="text-xs font-bold px-3 py-1 rounded-full bg-brand-tealSoft text-brand-teal">0 / 12 完成</span>
+        </div>
+        <div id="timeline-day2" class="relative pl-6 sm:pl-7 space-y-3.5 before:content-[''] before:absolute before:left-[9px] before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-200"></div>
+      </div>
+    </section>
+
+    <!-- ==================== 必買美食與伴手禮 Section ==================== -->
+    <section id="food" class="scroll-mt-24">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 flex flex-wrap items-center gap-2.5">
+          <span>美食與伴手禮清單</span>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-tealSoft text-brand-teal">點擊文字區標記已吃／已買</span>
+        </h2>
+      </div>
+      <div id="foodGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- ==================== 行前準備與隨身筆記 Section ==================== -->
+    <section id="tools" class="scroll-mt-24">
+      <div class="mb-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900">行前準備與隨身筆記</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- 待辦清單 -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col">
+          <h3 class="text-base sm:text-lg font-extrabold text-slate-900 mb-3.5 flex items-center gap-2">
+            <span>✅</span> 出發前待辦清單
+          </h3>
+          <ul id="checklist" class="space-y-2.5 mb-4 flex-1"></ul>
+          <div class="flex gap-2">
+            <input
+              id="newTodoInput"
+              type="text"
+              placeholder="新增待辦項目（例如：雨傘、相機電池）"
+              class="flex-1 min-w-0 px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-brand-teal outline-none text-sm"
+            />
+            <button
+              id="addTodoBtn"
+              type="button"
+              class="px-4 py-2 rounded-xl bg-brand-teal hover:bg-brand-tealMid text-white font-bold text-sm transition-colors cursor-pointer shrink-0"
+            >
+              新增
+            </button>
+          </div>
+        </div>
+
+        <!-- 隨身筆記 -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col">
+          <h3 class="text-base sm:text-lg font-extrabold text-slate-900 mb-3.5 flex items-center gap-2">
+            <span>📝</span> 旅途隨身筆記
+          </h3>
+          <textarea
+            id="notesArea"
+            rows="8"
+            placeholder="記錄訂位代號、飯店地址、花費或臨時想去的店…（會自動儲存在你的瀏覽器）"
+            class="w-full flex-1 p-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-brand-teal outline-none text-sm leading-relaxed resize-y"
+          ></textarea>
+          <div class="mt-2.5 flex items-center justify-between text-xs text-slate-500">
+            <span id="saveStatus">已自動儲存於本機瀏覽器</span>
+            <span>離線也能查看</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== 4. 頁尾 ==================== -->
+  <footer class="max-w-5xl mx-auto px-4 sm:px-5 py-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-slate-500 mb-8">
+    <span>宜蘭兩天一夜之旅 11/27 – 11/28 · 所有打卡與筆記皆自動儲存在本機</span>
+    <div class="flex items-center gap-2 flex-wrap">
+      <button
+        type="button"
+        onclick="window.print()"
+        class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 font-bold text-xs hover:border-brand-teal hover:text-brand-teal transition-colors cursor-pointer"
+      >
+        🖨️ 列印 / 存成 PDF
+      </button>
+      <button
+        id="resetBtn"
+        type="button"
+        class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 font-bold text-xs hover:border-red-400 hover:text-red-600 transition-colors cursor-pointer"
+      >
+        ↺ 重置打卡紀錄
+      </button>
+    </div>
+  </footer>
+
+  <!-- ==================== 5. 圖片放大檢視 Lightbox ==================== -->
+  <div
+    id="lightbox"
+    class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm flex-col items-center justify-center p-5 gap-3"
+  >
+    <button
+      id="closeLightboxBtn"
+      type="button"
+      class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-lg flex items-center justify-center cursor-pointer"
+      aria-label="關閉圖片"
+    >
+      ✕
+    </button>
+    <img
+      id="lightboxImg"
+      src=""
+      alt=""
+      referrerpolicy="no-referrer"
+      class="max-w-[92vw] max-h-[80vh] rounded-2xl shadow-2xl object-contain"
+    />
+    <div id="lightboxCap" class="text-white font-bold text-sm sm:text-base text-center"></div>
+  </div>
+
+  <!-- ==================== 6. 自訂重置確認 Modal (取代 confirm) ==================== -->
+  <div id="resetModal" class="hidden fixed inset-0 z-50 bg-black/45 backdrop-blur-xs items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-black text-slate-900">↺ 重置打卡紀錄？</h3>
+        <button id="cancelResetX" type="button" class="text-slate-400 hover:text-slate-700 font-bold text-lg cursor-pointer">✕</button>
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        確定要清除所有行程與美食打卡紀錄嗎？（您的自訂圖片、待辦清單與隨身筆記將會保留）
+      </p>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="cancelResetBtn" type="button" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm cursor-pointer">取消</button>
+        <button id="confirmResetBtn" type="button" class="px-4 py-2 rounded-xl bg-brand-coral hover:opacity-90 text-white font-bold text-sm cursor-pointer">確定重置</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 7. Toast 提示訊息 (取代 alert) ==================== -->
+  <div
+    id="toast"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-bold shadow-xl opacity-0 pointer-events-none transition-opacity duration-300"
+  ></div>
+
+  <!-- ==================== 8. JavaScript 互動邏輯與圖片資料 ==================== -->
+  <script>
+    // 1. 景點與美食網路主圖片設定
+    const IMAGE_MAP = {
+      hero: "https://bjsmile.tw/wp-content/uploads/2025/07/35.jpeg",
+      fulong_bento: "https://www.mecocute.com/wp-content/uploads/batch_IMG_7318.jpg",
+      caoling_bike: "https://newtaipei.travel/content/images/attractions/48158/1024x768_attractions-image-o4qstv0x5eatnlakuzzfwa.jpg",
+      mr_brown_castle: "https://img3.okgo.tw/titlepic/b2901_1.jpg",
+      yilan_cake: "https://image-cdn-flare.qdm.cloud/q60aabdc48c39c/image/data/6.jpg",
+      jiaoxi_souvenir: "https://flyblog.cc/wp-content/uploads/2024/04/batch_DSCF2004.jpg",
+      kong_a_farm: "https://liveyilan.com/wp-content/uploads/2024/05/36852.jpg",
+      magui_curry: "https://tenjo.tw/wp-content/uploads/JAP_8951.jpg",
+      animal_kingdom: "https://www.taiwanfarm.org.tw/UploadImg/56/09(5).jpg",
+      luodong_night: "https://www2.travelking.com.tw/photo.travelking.com.tw/scenery/999DF6A9-CC58-4773-84BC-65A10FE0B4B4_e.jpg",
+      nobel_roll: "https://shop.cakenobel.com.tw/Images/product/0101051.jpg"
+    };
+
+    // 2. 圖片載入失敗時自動切換的備援縮圖網址
+    const IMAGE_FALLBACKS = {
+      hero: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK_6JB9YCKVAXvOBlxDklUKHamgaAycBADBMngBhWc3A0LyJnS5MGBjnPw&s=10",
+      fulong_bento: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDtK6bsjT_nupGaDX0QINQsvjjSp31pMPs99389mCY-OCwwPRVgGTwMJGm&s=10",
+      caoling_bike: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLAyQG4VCaXGakUd0i4GfZPzIkUBMdLz5ODwzemYXg0wEMRsrxfCMc7M&s=10",
+      mr_brown_castle: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR-R45llQ4MPrls439l2kBV9_n02R7imhL64-YQzTM2T0rGrzdQLXSVAnk&s=10",
+      yilan_cake: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGeFjD-_fbKK-V0vxZ9nK6d2AWnPuCvrEOzpRcDzYPgl66grf-8R9qbn_R&s=10",
+      jiaoxi_souvenir: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREz_i1DPUHsHg6fKiCMtzoEmeTyIBJ9WqCGeUe6kzdaC6Q9dLIPHUXjAs&s=10",
+      kong_a_farm: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOjRZ3uqb2b3_7gnZN_Cd3r5gvbzQfWvRqVQWE5OGySxS1nbJiyMV-XeY&s=10",
+      magui_curry: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPbFk8y8iGvsNXuPsfDZVQo326mBxm6-hOVi_PCditFWDnvbEyWAOVk34&s=10",
+      animal_kingdom: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTR9JiMB8JsIVlOXANgILlTuKIgJUAvliXeTfcVy7nupTgJLfmOM0okWk&s=10",
+      luodong_night: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtFn1WLzUq-PEY6Vbq3t7fSy90oBBAylpo36TV1F_9QZRnpO8-FEm6hyE&s=10",
+      nobel_roll: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-HfnV6a-DNrnj6ALeNLSdus2erP0z8bU_xwS0T7D7tzFcYHuUEaqBGgE&s=10"
+    };
+
+    // 3. 完整 24 站行程資料 (DAY 1: 12 站, DAY 2: 12 站)
+    const ITINERARY = {
+      day1: [
+        {
+          id: "d1-1", time: "07:32 – 09:42", cat: "transport", catLabel: "台鐵轉乘",
+          title: "中壢出發 → 台北轉乘 → 抵達福隆",
+          desc: "07:32 中壢搭「自強號 102 車次」到台北，轉乘「區間快 4022」，09:42 抵達福隆火車站。",
+          map: "福隆火車站"
+        },
+        {
+          id: "d1-2", time: "09:42", cat: "food", catLabel: "早午餐",
+          title: "福隆便當早午餐",
+          desc: "出站吃經典福隆便當補充體力，準備騎腳踏車。",
+          map: "福隆便當",
+          imgKey: "fulong_bento", imgIcon: "🍱", imgGrad: "from-orange-600 to-amber-500", imgQuery: "福隆便當"
+        },
+        {
+          id: "d1-3", time: "10:20", cat: "spot", catLabel: "單車景點",
+          title: "騎腳踏車遊草嶺古道",
+          desc: "租借腳踏車享受東北角海風與山海景色（預計遊玩約 2 小時）。",
+          map: "舊草嶺隧道自行車道",
+          imgKey: "caoling_bike", imgIcon: "🚲", imgGrad: "from-emerald-700 to-teal-500", imgQuery: "福隆 舊草嶺環狀線自行車道"
+        },
+        {
+          id: "d1-4", time: "12:20", cat: "transport", catLabel: "集合還車",
+          title: "返回福隆車站",
+          desc: "歸還腳踏車並預留時間進站候車。",
+          map: "福隆火車站"
+        },
+        {
+          id: "d1-5", time: "12:44 – 13:06", cat: "transport", catLabel: "台鐵區間車",
+          title: "福隆 → 外澳（車程 22 分鐘）",
+          desc: "搭乘 12:44 區間車前往外澳車站。",
+          alert: { type: "danger", text: "⚠️ 重要提醒：沒搭到這班要等一個小時！" },
+          map: "外澳火車站"
+        },
+        {
+          id: "d1-6", time: "13:40", cat: "food", catLabel: "海景咖啡",
+          title: "搭 Uber 抵達伯朗咖啡城堡",
+          desc: "看海景放空！低消 100 元，預計只喝一杯飲料 + 甜點 ×1。",
+          alert: { type: "warn", text: "💡 備註：晚點還要吃東西，別點太飽。" },
+          map: "頭城城堡咖啡一館",
+          imgKey: "mr_brown_castle", imgIcon: "🏰", imgGrad: "from-cyan-800 to-teal-600", imgQuery: "頭城 伯朗咖啡城堡"
+        },
+        {
+          id: "d1-7", time: "15:00", cat: "transport", catLabel: "計程車",
+          title: "叫計程車離開伯朗咖啡城堡",
+          desc: "下山返回外澳車站準備搭火車往礁溪。",
+          map: "外澳火車站"
+        },
+        {
+          id: "d1-8", time: "15:38 – 15:51", cat: "transport", catLabel: "台鐵火車",
+          title: "外澳 → 礁溪火車站",
+          desc: "13 分鐘車程輕鬆抵達礁溪。",
+          map: "礁溪火車站"
+        },
+        {
+          id: "d1-9", time: "16:00", cat: "food", catLabel: "伴手禮",
+          title: "礁溪大街買宜蘭餅 & 亦順軒",
+          desc: "從車站步行過去約 10 分鐘，先買好人氣伴手禮。",
+          map: "亦順軒 礁溪店",
+          imgKey: "jiaoxi_souvenir", imgIcon: "🛍️", imgGrad: "from-orange-600 to-rose-500", imgQuery: "亦順軒 礁溪"
+        },
+        {
+          id: "d1-10", time: "16:30", cat: "stay", catLabel: "住宿",
+          title: "飯店 Check-in",
+          desc: "辦理入住、放行李稍作整理。",
+          map: "礁溪溫泉"
+        },
+        {
+          id: "d1-11", time: "16:40", cat: "transport", catLabel: "計程車＋接駁",
+          title: "搭計程車到空ㄟ農場接駁區",
+          desc: "抵達山下專用接駁區轉搭接駁車上山（約 10–15 分鐘一班）。",
+          map: "空ㄟ農場接駁點"
+        },
+        {
+          id: "d1-12", time: "17:20 – 19:30", cat: "spot", catLabel: "夜景餐廳",
+          title: "空ㄟ農場賞夕陽夜景 → 19:30 回飯店",
+          desc: "17:20 抵達餐廳吃窯烤披薩、看蘭陽平原夜景，19:30 返回飯店休息。",
+          alert: { type: "warn", text: "⏱️ 用餐時間限制 90 分鐘。" },
+          map: "空ㄟ農場",
+          imgKey: "kong_a_farm", imgIcon: "🌃", imgGrad: "from-slate-900 to-indigo-800", imgQuery: "礁溪 空ㄟ農場 夜景"
+        }
+      ],
+      day2: [
+        {
+          id: "d2-1", time: "上午", cat: "food", catLabel: "早餐",
+          title: "飯店早餐",
+          desc: "悠閒享用飯店早餐並整理行李退房。",
+          map: "礁溪"
+        },
+        {
+          id: "d2-2", time: "上午", cat: "transport", catLabel: "飯店接駁車",
+          title: "搭乘飯店接駁車往礁溪火車站",
+          desc: "前往車站準備搭車往宜蘭市。",
+          map: "礁溪火車站"
+        },
+        {
+          id: "d2-3", time: "11:13 – 11:21", cat: "transport", catLabel: "台鐵區間車",
+          title: "礁溪 → 宜蘭火車站",
+          desc: "車程僅 8 分鐘；抵達後可視需要於宜蘭車站寄放行李。",
+          map: "宜蘭火車站"
+        },
+        {
+          id: "d2-4", time: "11:21 – 11:40", cat: "transport", catLabel: "步行 15 分",
+          title: "步行前往馬桂爺爺",
+          desc: "從宜蘭車站散步約 15 分鐘抵達巷弄老宅咖哩。",
+          map: "馬桂爺爺"
+        },
+        {
+          id: "d2-5", time: "11:40", cat: "food", catLabel: "預約午餐",
+          title: "馬桂爺爺咖哩午餐",
+          desc: "人氣濃郁日式咖哩專門店。",
+          alert: { type: "danger", text: "📅 重要提醒：務必前七日（11/21）完成預約！" },
+          map: "馬桂爺爺",
+          imgKey: "magui_curry", imgIcon: "🍛", imgGrad: "from-amber-700 to-orange-600", imgQuery: "宜蘭 馬桂爺爺 咖哩"
+        },
+        {
+          id: "d2-6", time: "13:00", cat: "transport", catLabel: "公車轉乘",
+          title: "走回宜蘭火車站轉搭公車",
+          desc: "搭乘公車 791、1787 或 1788 號，於「壯圍大橋站」下車。",
+          alert: { type: "warn", text: "🚏 記得在「壯圍大橋站」下車！" },
+          map: "壯圍大橋公車站"
+        },
+        {
+          id: "d2-7", time: "14:30 – 16:30", cat: "spot", catLabel: "動物互動",
+          title: "動物王國（停留 2 小時）",
+          desc: "14:30 抵達與可愛動物近距離互動拍照，16:30 準備離開。",
+          map: "蘭陽動植物王國",
+          imgKey: "animal_kingdom", imgIcon: "🦌", imgGrad: "from-emerald-700 to-green-600", imgQuery: "蘭陽動植物王國 水豚"
+        },
+        {
+          id: "d2-8", time: "17:09 – 17:19", cat: "transport", catLabel: "台鐵區間車",
+          title: "宜蘭火車站 → 羅東車站",
+          desc: "搭乘 17:09–17:19 區間車（備案：17:56 區間車），預計 18:00 前抵達羅東車站。",
+          map: "羅東火車站"
+        },
+        {
+          id: "d2-9", time: "18:00", cat: "transport", catLabel: "步行 15 分",
+          title: "羅東車站步行至羅東夜市",
+          desc: "沿公正路散步約 15 分鐘抵達羅東夜市。",
+          map: "羅東夜市"
+        },
+        {
+          id: "d2-10", time: "18:15", cat: "food", catLabel: "夜市美食",
+          title: "羅東夜市 & 購買諾貝爾奶凍捲",
+          desc: "大啖宜蘭在地夜市小吃，並買好諾貝爾奶凍捲帶回家。",
+          map: "諾貝爾奶凍 羅東店",
+          imgKey: "luodong_night", imgIcon: "🏮", imgGrad: "from-slate-800 to-rose-900", imgQuery: "羅東夜市"
+        },
+        {
+          id: "d2-11", time: "19:30", cat: "transport", catLabel: "Uber",
+          title: "搭 Uber 前往羅東轉運站",
+          desc: "提早前往轉運站候車、買票或取票。",
+          map: "羅東轉運站"
+        },
+        {
+          id: "d2-12", time: "20:00 – 21:00", cat: "transport", catLabel: "客運返程",
+          title: "羅東轉運站搭車回台北 → 21:00 抵達台北市政府",
+          desc: "順利結束充實的宜蘭兩天一夜小旅行！",
+          map: "市政府轉運站"
+        }
+      ]
+    };
+
+    // 4. 8 張美食與伴手禮卡片 (宜蘭餅使用 yilan_cake、亦順軒使用 jiaoxi_souvenir)
+    const FOODS = [
+      { id: "f1", name: "福隆便當", day: "DAY 1", note: "09:42 抵達福隆當早午餐", imgKey: "fulong_bento", icon: "🍱", grad: "from-orange-600 to-amber-500", query: "福隆便當" },
+      { id: "f2", name: "伯朗咖啡城堡", day: "DAY 1", note: "低消 100，飲料 1 杯 + 甜點 ×1", imgKey: "mr_brown_castle", icon: "☕", grad: "from-cyan-800 to-teal-600", query: "伯朗咖啡城堡" },
+      { id: "f3", name: "宜蘭餅", day: "DAY 1", note: "16:00 礁溪大街伴手禮", imgKey: "yilan_cake", icon: "🍘", grad: "from-amber-600 to-orange-500", query: "宜蘭餅 礁溪" },
+      { id: "f4", name: "亦順軒", day: "DAY 1", note: "16:00 礁溪大街伴手禮（奶凍捲／麵包）", imgKey: "jiaoxi_souvenir", icon: "🥐", grad: "from-orange-600 to-rose-500", query: "亦順軒 礁溪" },
+      { id: "f5", name: "空ㄟ農場", day: "DAY 1", note: "17:20 看夕陽夜景，用餐 90 分鐘", imgKey: "kong_a_farm", icon: "🍕", grad: "from-slate-900 to-indigo-800", query: "空ㄟ農場 披薩 夜景" },
+      { id: "f6", name: "馬桂爺爺咖哩", day: "DAY 2", note: "11:40 午餐，記得前七日預約！", imgKey: "magui_curry", icon: "🍛", grad: "from-amber-700 to-orange-600", query: "馬桂爺爺 咖哩" },
+      { id: "f7", name: "羅東夜市小吃", day: "DAY 2", note: "18:15 開吃在地必吃小吃", imgKey: "luodong_night", icon: "🍢", grad: "from-slate-800 to-rose-900", query: "羅東夜市 美食" },
+      { id: "f8", name: "諾貝爾奶凍捲", day: "DAY 2", note: "逛羅東夜市順路必買伴手禮", imgKey: "nobel_roll", icon: "🍰", grad: "from-rose-500 to-amber-400", query: "諾貝爾奶凍捲" }
+    ];
+
+    const DEFAULT_TODOS = [
+      { id: "t1", text: "11/21 搶「馬桂爺爺」前七日預約", done: false },
+      { id: "t2", text: "確認 11/27 07:32 中壢自強號 102 車票", done: false },
+      { id: "t3", text: "確認飯店接駁車時刻與行李寄放", done: false },
+      { id: "t4", text: "悠遊卡加值、帶行動電源與輕便雨具", done: false }
+    ];
+
+    // 5. LocalStorage 狀態管理
+    const STORE_KEY = "yilan_trip_1127_web_v3";
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            doneStops: parsed.doneStops || {},
+            doneFoods: parsed.doneFoods || {},
+            todos: parsed.todos || DEFAULT_TODOS,
+            notes: parsed.notes || "",
+            customImages: parsed.customImages || {}
+          };
+        }
+      } catch (err) {}
+      return { doneStops: {}, doneFoods: {}, todos: DEFAULT_TODOS, notes: "", customImages: {} };
+    }
+
+    let state = loadState();
+    let isEditMode = false;
+    let activeDay = "all";
+    let activeFilter = "all";
+    let toastTimer = null;
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      } catch (err) {}
+    }
+
+    // 顯示輕量 Toast 提示
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.remove("opacity-0", "pointer-events-none");
+      el.classList.add("opacity-100");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.add("opacity-0", "pointer-events-none");
+        el.classList.remove("opacity-100");
+      }, 2800);
+    }
+
+    // 取得目前生效的圖片網址 (優先使用使用者自訂 > IMAGE_MAP)
+    function getImgUrl(key) {
+      if (state.customImages && typeof state.customImages[key] === "string" && state.customImages[key].trim() !== "") {
+        return state.customImages[key].trim();
+      }
+      return IMAGE_MAP[key] || "";
+    }
+
+    // 圖片載入失敗時自動切換至 IMAGE_FALLBACKS，若再次失敗則顯示漸層替代畫面
+    window.handleImgError = function (imgEl, key) {
+      const fallbackUrl = IMAGE_FALLBACKS[key];
+      if (fallbackUrl && !imgEl.dataset.fallbackTried) {
+        imgEl.dataset.fallbackTried = "1";
+        imgEl.src = fallbackUrl;
+        return;
+      }
+      imgEl.classList.add("hidden");
+      const fallbackBox = imgEl.nextElementSibling;
+      if (fallbackBox) fallbackBox.classList.remove("hidden");
+    };
+
+    // 套用封面大圖與備援邏輯
+    function applyHeroBg() {
+      const heroImg = document.getElementById("heroBgImg");
+      const heroInput = document.getElementById("heroUrlInput");
+      const url = getImgUrl("hero");
+      heroInput.value = url;
+
+      heroImg.dataset.fallbackTried = "";
+      heroImg.classList.remove("hidden");
+      heroImg.onerror = function () {
+        if (!heroImg.dataset.fallbackTried && IMAGE_FALLBACKS.hero) {
+          heroImg.dataset.fallbackTried = "1";
+          heroImg.src = IMAGE_FALLBACKS.hero;
+        } else {
+          heroImg.classList.add("hidden");
+        }
+      };
+      heroImg.src = url || IMAGE_FALLBACKS.hero;
+    }
+
+    // 開啟 Lightbox 放大預覽
+    function openLightbox(key, caption) {
+      const url = getImgUrl(key) || IMAGE_FALLBACKS[key];
+      if (!url) return;
+      const lb = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lightboxImg");
+      const lbCap = document.getElementById("lightboxCap");
+      lbImg.dataset.fallbackTried = "";
+      lbImg.onerror = function () {
+        if (!lbImg.dataset.fallbackTried && IMAGE_FALLBACKS[key]) {
+          lbImg.dataset.fallbackTried = "1";
+          lbImg.src = IMAGE_FALLBACKS[key];
+        }
+      };
+      lbImg.src = url;
+      lbCap.textContent = caption || "";
+      lb.classList.remove("hidden");
+      lb.classList.add("flex");
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById("lightbox");
+      lb.classList.add("hidden");
+      lb.classList.remove("flex");
+    }
+
+    // 產生帶備援機制與可切換編輯器的圖片 HTML
+    function buildPhotoHtml(key, title, icon, grad, searchQuery, roundedClass) {
+      const url = getImgUrl(key);
+      const googleImgUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(searchQuery || title)}`;
+      const safeTitle = title.replace(/"/g, "&quot;");
+      const editorVisibility = isEditMode ? "flex" : "hidden";
+
+      return `
+        <div class="w-full">
+          <div
+            data-lightbox-key="${key}"
+            data-lightbox-title="${safeTitle}"
+            class="group relative w-full aspect-[16/10] ${roundedClass} overflow-hidden bg-gradient-to-br ${grad || "from-brand-teal to-brand-tealLight"} border border-slate-200/70 cursor-pointer"
+          >
+            <img
+              src="${url}"
+              alt="${safeTitle}"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="handleImgError(this, '${key}')"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div class="hidden absolute inset-0 flex flex-col items-center justify-center text-center p-3 text-white">
+              <span class="text-2xl mb-1">${icon}</span>
+              <span class="text-xs font-bold">${safeTitle}</span>
+            </div>
+            <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-xs text-[10px] font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity">
+              🔍 放大檢視
+            </div>
+          </div>
+
+          <div class="img-editor ${editorVisibility} mt-2 bg-slate-50 border border-dashed border-brand-teal rounded-xl p-2 flex-col gap-1.5" onclick="event.stopPropagation()">
+            <div class="flex gap-1.5">
+              <input
+                type="url"
+                value="${url}"
+                data-img-input="${key}"
+                placeholder="貼上圖片網址 (https://...)"
+                class="flex-1 min-w-0 px-2.5 py-1 text-xs rounded-lg border border-slate-200 bg-white outline-none focus:border-brand-teal"
+              />
+              <button
+                type="button"
+                data-img-save="${key}"
+                class="px-2.5 py-1 rounded-lg bg-brand-teal text-white font-bold text-xs cursor-pointer hover:bg-brand-tealMid"
+              >
+                套用
+              </button>
+            </div>
+            <div class="flex items-center justify-between text-[11px]">
+              <a href="${googleImgUrl}" target="_blank" rel="noopener noreferrer" class="text-brand-teal font-bold hover:underline">
+                🔍 去 Google 找圖
+              </a>
+              <button type="button" data-img-reset="${key}" class="text-slate-500 hover:text-brand-coral font-semibold cursor-pointer">
+                恢復預設圖
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 類別標籤樣式對應
+    function getCatBadgeClasses(cat) {
+      switch (cat) {
+        case "transport": return "bg-blue-50 text-blue-700";
+        case "food": return "bg-orange-50 text-orange-700";
+        case "spot": return "bg-emerald-50 text-emerald-700";
+        case "stay": return "bg-purple-50 text-purple-700";
+        default: return "bg-slate-100 text-slate-600";
+      }
+    }
+
+    // 渲染 DAY 1 & DAY 2 時間軸
+    function renderTimelines() {
+      ["day1", "day2"].forEach((dayKey) => {
+        const container = document.getElementById(`timeline-${dayKey}`);
+        const items = ITINERARY[dayKey];
+        container.innerHTML = "";
+
+        let completed = 0;
+        items.forEach((item) => {
+          const isDone = !!state.doneStops[item.id];
+          if (isDone) completed++;
+          if (activeFilter !== "all" && item.cat !== activeFilter) return;
+
+          const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.map)}`;
+          const hasPhoto = !!item.imgKey;
+
+          const card = document.createElement("div");
+          card.className = `relative rounded-2xl p-4 sm:p-5 border transition-all ${
+            isDone
+              ? "bg-slate-50/90 border-slate-200/70 opacity-65"
+              : "bg-white border-slate-200/80 shadow-xs hover:shadow-md"
+          }`;
+
+          const alertHtml = item.alert
+            ? `<div class="mt-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 border ${
+                item.alert.type === "danger"
+                  ? "bg-red-50 text-red-800 border-red-200"
+                  : "bg-amber-50 text-amber-900 border-amber-200"
+              }">${item.alert.text}</div>`
+            : "";
+
+          card.innerHTML = `
+            <button
+              type="button"
+              data-toggle="${item.id}"
+              title="標記完成"
+              aria-label="標記 ${item.title} 完成"
+              class="absolute -left-[25px] sm:-left-[29px] top-5 w-[18px] h-[18px] rounded-full border-[3px] flex items-center justify-center text-[10px] font-black transition-colors cursor-pointer ${
+                isDone
+                  ? "bg-brand-teal border-brand-teal text-white"
+                  : "bg-white border-brand-teal text-transparent hover:scale-110"
+              }"
+            >✓</button>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-extrabold text-xs sm:text-sm text-brand-teal bg-brand-tealSoft px-2.5 py-0.5 rounded-lg">${item.time}</span>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${getCatBadgeClasses(item.cat)}">${item.catLabel}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <a
+                  href="${mapUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-teal hover:text-brand-teal hover:bg-brand-tealSoft text-xs font-bold transition-colors"
+                >
+                  📍 地圖
+                </a>
+                <button
+                  type="button"
+                  data-toggle="${item.id}"
+                  class="px-2.5 py-1 rounded-lg border text-xs font-bold transition-colors cursor-pointer ${
+                    isDone
+                      ? "bg-brand-teal border-brand-teal text-white"
+                      : "bg-white border-slate-200 text-slate-700 hover:border-brand-teal hover:text-brand-teal"
+                  }"
+                >
+                  ${isDone ? "✓ 已完成" : "打卡"}
+                </button>
+              </div>
+            </div>
+
+            <div class="${hasPhoto ? "grid grid-cols-1 md:grid-cols-[1fr_220px] gap-4 items-start" : ""}">
+              <div>
+                <h4 class="text-base sm:text-lg font-extrabold leading-snug mb-1 ${
+                  isDone ? "line-through text-slate-400" : "text-slate-900"
+                }">${item.title}</h4>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${item.desc}</p>
+                ${alertHtml}
+              </div>
+              ${hasPhoto ? buildPhotoHtml(item.imgKey, item.title, item.imgIcon, item.imgGrad, item.imgQuery, "rounded-xl") : ""}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        document.getElementById(`${dayKey}Count`).textContent = `${completed} / ${items.length} 完成`;
+      });
+
+      updateProgress();
+    }
+
+    // 更新頂部進度條與 Hero 統計
+    function updateProgress() {
+      const total = ITINERARY.day1.length + ITINERARY.day2.length;
+      const done = Object.values(state.doneStops).filter(Boolean).length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      document.getElementById("progressFill").style.width = `${pct}%`;
+      document.getElementById("heroProgress").textContent = `${done} / ${total} 站`;
+    }
+
+    // 渲染 8 張美食與伴手禮卡片
+    function renderFoods() {
+      const grid = document.getElementById("foodGrid");
+      grid.innerHTML = "";
+      FOODS.forEach((f) => {
+        const isDone = !!state.doneFoods[f.id];
+        const card = document.createElement("div");
+        card.className = `rounded-2xl overflow-hidden border transition-all flex flex-col ${
+          isDone
+            ? "bg-[#f4fafb] border-brand-teal shadow-xs"
+            : "bg-white border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-0.5"
+        }`;
+
+        card.innerHTML = `
+          ${buildPhotoHtml(f.imgKey, f.name, f.icon, f.grad, f.query, "rounded-none")}
+          <div data-food-toggle="${f.id}" class="p-4 flex flex-col justify-between flex-1 gap-3 cursor-pointer">
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-extrabold text-sm sm:text-base text-slate-900">${f.name}</span>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">${f.day}</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${f.note}</p>
+            </div>
+            <div class="text-xs font-bold ${isDone ? "text-brand-teal" : "text-slate-400"}">
+              ${isDone ? "✓ 已收服" : "○ 尚未打卡"}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 渲染行前待辦清單
+    function renderTodos() {
+      const ul = document.getElementById("checklist");
+      ul.innerHTML = "";
+      state.todos.forEach((todo, idx) => {
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between gap-2.5 px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-100";
+        li.innerHTML = `
+          <label class="flex items-center gap-2.5 flex-1 cursor-pointer text-sm font-medium ${
+            todo.done ? "line-through text-slate-400" : "text-slate-800"
+          }">
+            <input type="checkbox" ${todo.done ? "checked" : ""} data-todo="${idx}" class="w-4 h-4 accent-[#0f5257] cursor-pointer" />
+            <span>${todo.text}</span>
+          </label>
+          <button type="button" data-del="${idx}" title="刪除" class="text-slate-400 hover:text-red-500 px-1.5 text-sm cursor-pointer">✕</button>
+        `;
+        ul.appendChild(li);
+      });
+    }
+
+    // 切換圖片編輯模式
+    function setEditMode(enabled) {
+      isEditMode = enabled;
+      const btn = document.getElementById("toggleEditBtn");
+      const banner = document.getElementById("editBanner");
+      const heroEditor = document.getElementById("heroEditorBox");
+
+      if (isEditMode) {
+        btn.classList.add("bg-brand-coral", "border-brand-coral", "text-white");
+        btn.classList.remove("bg-white", "text-slate-700", "border-slate-200");
+        banner.classList.remove("hidden");
+        heroEditor.classList.remove("hidden");
+      } else {
+        btn.classList.remove("bg-brand-coral", "border-brand-coral", "text-white");
+        btn.classList.add("bg-white", "text-slate-700", "border-slate-200");
+        banner.classList.add("hidden");
+        heroEditor.classList.add("hidden");
+      }
+      renderTimelines();
+      renderFoods();
+    }
+
+    // 使用 document.execCommand('copy') 安全複製文字至剪貼簿
+    function copyTextFallback(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      let success = false;
+      try {
+        success = document.execCommand("copy");
+      } catch (err) {
+        success = false;
+      }
+      document.body.removeChild(textarea);
+      return success;
+    }
+
+    // ==================== 事件委派與綁定 ====================
+    document.addEventListener("click", (e) => {
+      // 1. 行程站點打卡
+      const toggleEl = e.target.closest("[data-toggle]");
+      if (toggleEl) {
+        const id = toggleEl.getAttribute("data-toggle");
+        state.doneStops[id] = !state.doneStops[id];
+        saveState();
+        renderTimelines();
+        return;
+      }
+
+      // 2. 美食卡片打卡
+      const foodEl = e.target.closest("[data-food-toggle]");
+      if (foodEl) {
+        const fid = foodEl.getAttribute("data-food-toggle");
+        state.doneFoods[fid] = !state.doneFoods[fid];
+        saveState();
+        renderFoods();
+        return;
+      }
+
+      // 3. 套用自訂圖片網址
+      const saveKey = e.target.getAttribute("data-img-save");
+      if (saveKey) {
+        const input = e.target.parentElement.querySelector(`[data-img-input="${saveKey}"]`);
+        const val = input ? input.value.trim() : "";
+        if (val) {
+          state.customImages[saveKey] = val;
+        } else {
+          delete state.customImages[saveKey];
+        }
+        saveState();
+        applyHeroBg();
+        renderTimelines();
+        renderFoods();
+        showToast("✅ 圖片已更新！");
+        return;
+      }
+
+      // 4. 恢復預設網路圖片
+      const resetKey = e.target.getAttribute("data-img-reset");
+      if (resetKey) {
+        delete state.customImages[resetKey];
+        saveState();
+        applyHeroBg();
+        renderTimelines();
+        renderFoods();
+        showToast("↺ 已恢復預設景點圖片");
+        return;
+      }
+
+      // 5. 點圖放大 Lightbox
+      const lbEl = e.target.closest("[data-lightbox-key]");
+      if (lbEl && !isEditMode) {
+        openLightbox(lbEl.getAttribute("data-lightbox-key"), lbEl.getAttribute("data-lightbox-title"));
+        return;
+      }
+
+      // 6. 刪除待辦項目
+      const delIdx = e.target.getAttribute("data-del");
+      if (delIdx !== null) {
+        state.todos.splice(Number(delIdx), 1);
+        saveState();
+        renderTodos();
+      }
+    });
+
+    // 封面背景圖儲存
+    document.getElementById("saveHeroUrlBtn").addEventListener("click", () => {
+      const val = document.getElementById("heroUrlInput").value.trim();
+      if (val) {
+        state.customImages.hero = val;
+      } else {
+        delete state.customImages.hero;
+      }
+      saveState();
+      applyHeroBg();
+      showToast("✅ 封面大圖已更新！");
+    });
+
+    // 編輯模式開關
+    document.getElementById("toggleEditBtn").addEventListener("click", () => setEditMode(!isEditMode));
+    document.getElementById("closeEditBtn").addEventListener("click", () => setEditMode(false));
+
+    // 複製 IMAGE_MAP 設定碼
+    document.getElementById("copyMapBtn").addEventListener("click", () => {
+      const merged = {};
+      Object.keys(IMAGE_MAP).forEach((k) => {
+        merged[k] = getImgUrl(k);
+      });
+      const snippet = `const IMAGE_MAP = ${JSON.stringify(merged, null, 2)};`;
+      const ok = copyTextFallback(snippet);
+      if (ok) {
+        showToast("📋 已複製 IMAGE_MAP 設定碼，可貼回 HTML 更新！");
+      } else {
+        showToast("⚠️ 複製失敗，請手動從開發者工具複製");
+      }
+    });
+
+    // Lightbox 關閉
+    document.getElementById("lightbox").addEventListener("click", (e) => {
+      if (e.target.id === "lightbox" || e.target.id === "closeLightboxBtn") {
+        closeLightbox();
+      }
+    });
+
+    // 待辦清單勾選與新增
+    document.getElementById("checklist").addEventListener("change", (e) => {
+      const idx = e.target.getAttribute("data-todo");
+      if (idx !== null) {
+        state.todos[Number(idx)].done = e.target.checked;
+        saveState();
+        renderTodos();
+      }
+    });
+
+    document.getElementById("addTodoBtn").addEventListener("click", () => {
+      const input = document.getElementById("newTodoInput");
+      const val = input.value.trim();
+      if (!val) return;
+      state.todos.push({ id: "t" + Date.now(), text: val, done: false });
+      input.value = "";
+      saveState();
+      renderTodos();
+    });
+
+    document.getElementById("newTodoInput").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("addTodoBtn").click();
+    });
+
+    // 天數頁籤切換
+    document.querySelectorAll(".day-tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".day-tab").forEach((b) => {
+          b.classList.remove("bg-brand-teal", "text-white");
+          b.classList.add("bg-slate-100", "text-slate-600");
+        });
+        btn.classList.add("bg-brand-teal", "text-white");
+        btn.classList.remove("bg-slate-100", "text-slate-600");
+
+        activeDay = btn.dataset.day;
+        const p1 = document.getElementById("panel-day1");
+        const p2 = document.getElementById("panel-day2");
+        if (activeDay === "all") {
+          p1.classList.remove("hidden");
+          p2.classList.remove("hidden");
+          p2.classList.add("mt-7");
+        } else if (activeDay === "day1") {
+          p1.classList.remove("hidden");
+          p2.classList.add("hidden");
+        } else {
+          p1.classList.add("hidden");
+          p2.classList.remove("hidden");
+          p2.classList.remove("mt-7");
+        }
+      });
+    });
+
+    // 類別篩選
+    document.querySelectorAll(".filter-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-pill").forEach((b) => {
+          b.classList.remove("bg-brand-coralSoft", "text-brand-coral");
+          b.classList.add("text-slate-600");
+        });
+        btn.classList.add("bg-brand-coralSoft", "text-brand-coral");
+        btn.classList.remove("text-slate-600");
+        activeFilter = btn.dataset.filter;
+        renderTimelines();
+      });
+    });
+
+    // 隨身筆記自動儲存
+    const notesArea = document.getElementById("notesArea");
+    notesArea.value = state.notes || "";
+    notesArea.addEventListener("input", () => {
+      state.notes = notesArea.value;
+      saveState();
+      document.getElementById("saveStatus").textContent =
+        "已儲存 · " + new Date().toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" });
+    });
+
+    // 自訂重置確認 Modal
+    const resetModal = document.getElementById("resetModal");
+    function closeResetModal() {
+      resetModal.classList.add("hidden");
+      resetModal.classList.remove("flex");
+    }
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      resetModal.classList.remove("hidden");
+      resetModal.classList.add("flex");
+    });
+    document.getElementById("cancelResetBtn").addEventListener("click", closeResetModal);
+    document.getElementById("cancelResetX").addEventListener("click", closeResetModal);
+    resetModal.addEventListener("click", (e) => {
+      if (e.target === resetModal) closeResetModal();
+    });
+    document.getElementById("confirmResetBtn").addEventListener("click", () => {
+      state.doneStops = {};
+      state.doneFoods = {};
+      saveState();
+      renderTimelines();
+      renderFoods();
+      closeResetModal();
+      showToast("↺ 已重置所有打卡紀錄");
+    });
+
+    // 初始化渲染
+    applyHeroBg();
+    renderTimelines();
+    renderFoods();
+    renderTodos();
+  </script>
+</body>
+</html>
